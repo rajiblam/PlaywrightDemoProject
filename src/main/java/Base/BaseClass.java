@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeTest;
 import com.microsoft.playwright.Page;
 import Factory.PlaywrightFactory;
 import PageObject.HomePage;
+import PageObject.LoginPage;
 
 public class BaseClass {
 	
@@ -13,6 +14,7 @@ public class BaseClass {
 	PlaywrightFactory factory;
 	protected Properties prop;
 	protected HomePage homePage;
+	protected LoginPage loginPage;
 	
 	@BeforeTest
 	public  void setUp()

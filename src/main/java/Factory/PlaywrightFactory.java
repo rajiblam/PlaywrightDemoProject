@@ -33,10 +33,10 @@ public class PlaywrightFactory {
 			browser=playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
 			break;
 			case "chrome":
-			browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false).setSlowMo(1000));
-				break;
+			browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false).setSlowMo(200));
+			break;
 			default:
-				System.out.println("We not support this browser : "+browserName);
+				System.out.println("We don't support this browser : "+browserName);
 			break;
 		}
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();

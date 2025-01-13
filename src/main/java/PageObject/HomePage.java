@@ -27,10 +27,10 @@ public class HomePage {
 		return page.innerText(pageText);
 	}
 
-	public String doLogin()
+	public LoginPage navigateToLoginPage()
 	{
 		page.click(menuClick);
 		page.click(loginClick);
-		return page.innerText(loginPageSingInText);
+		return new LoginPage(page);
 	}
 }
