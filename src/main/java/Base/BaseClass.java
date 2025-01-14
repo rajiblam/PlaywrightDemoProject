@@ -29,7 +29,6 @@ public class BaseClass {
 	public  void tearDown()
 	{
 		page.context().browser().close();
-		//browser.close();
 	}
 
 }

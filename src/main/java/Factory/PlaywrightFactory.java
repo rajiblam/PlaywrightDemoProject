@@ -1,7 +1,5 @@
 package Factory;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,33 +17,52 @@ public class PlaywrightFactory {
 	BrowserContext browserContext;
 	Page page;
 	Properties prop;
+	//Using TreadLocal concept for providing copy of browser instance
+	private static ThreadLocal<Browser> tlBrowser = new ThreadLocal<>();
+	private static ThreadLocal<BrowserContext> tlBrowserContext = new ThreadLocal<>();
+	private static ThreadLocal<Page> tlPage = new ThreadLocal<>();
+	private static ThreadLocal< Playwright> tlPlaywright = new ThreadLocal<>();
+	
+	public static Playwright getPlaywright()
+	{
+		return tlPlaywright.get();
+	}
+	public static Browser getBrowser()
+	{
+		return tlBrowser.get();
+	}
+	public static BrowserContext getBrowserContext()
+	{
+		return tlBrowserContext.get();
+	}
+	public static Page getPage()
+	{
+		return tlPage.get();
+	}
 	
 	public Page initialiseBrowser(Properties prop)
 	{
 		String browserName=prop.getProperty("browser").trim();
-		playwright=Playwright.create();
+		tlPlaywright.set(Playwright.create());
 		switch(browserName.toLowerCase())
 		{
 			case "chromium":
-			browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+			tlBrowser.set(getPlaywright().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)));
 			break;
 			case "firefox":
-			browser=playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+			tlBrowser.set(getPlaywright().firefox().launch(new BrowserType.LaunchOptions().setHeadless(false)));
 			break;
 			case "chrome":
-			browser=playwright.chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false).setSlowMo(200));
+			tlBrowser.set(getPlaywright().chromium().launch(new BrowserType.LaunchOptions().setChannel("chrome").setHeadless(false).setSlowMo(200)));
 			break;
 			default:
 				System.out.println("We don't support this browser : "+browserName);
 			break;
 		}
-		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-		int height=(int)screensize.getHeight();
-		int width=(int)screensize.getWidth();
-		browserContext=browser.newContext(new Browser.NewContextOptions().setViewportSize(width, height));
-		page=browserContext.newPage();
-		page.navigate(prop.getProperty("url"));
-		return page;
+		tlBrowserContext.set(getBrowser().newContext());
+		tlPage.set(getBrowserContext().newPage());
+		getPage().navigate(prop.getProperty("url").trim());
+		return getPage();
 	}
 	
 	public Properties initialiseProperties()

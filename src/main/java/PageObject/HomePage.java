@@ -10,7 +10,6 @@ public class HomePage {
 	private String pageText = "//h1[text()='Learn Automation Courses']";
 	private String menuClick="(//div[@class='navbar-menu-links']//img)[1]";
 	private String loginClick="//button[text()='Log in']";
-	private String loginPageSingInText="//h2[text()='Sign In']";
 	
 	public HomePage(Page page) //construction initialise
 	{
