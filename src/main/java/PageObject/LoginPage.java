@@ -8,17 +8,25 @@ public class LoginPage {
 	private String loginText="input#email1";
 	private String passwordText="input#password1";
 	private String loginButton="//button[text()='Sign in']";
+	private String loginErrorMessage="h2.errorMessage";
 	
 	public LoginPage(Page page)
 	{
 		this.page=page;
 	}
 
-	public void enterUsername(String uName, String pWord)
+	public void enterWrongUsername(String uName, String pWord)
 	{
 		page.fill(loginText, uName);
 		page.fill(passwordText, pWord);
 		page.click(loginButton);
+	}
+	
+	public String loginErrorMessage()
+	{
+		String errorText= page.locator(loginErrorMessage).innerText();
+		System.out.println("Error Text :"+errorText);
+		return errorText;
 	}
 	
 	

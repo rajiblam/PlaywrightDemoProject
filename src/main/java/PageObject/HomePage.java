@@ -9,7 +9,7 @@ public class HomePage {
 	//locator initialise
 	private String pageText = "//h1[text()='Learn Automation Courses']";
 	private String menuClick="(//div[@class='navbar-menu-links']//img)[1]";
-	private String loginClick="//button[text()='Log in']";
+	private String loginClick="Log in";
 	
 	public HomePage(Page page) //construction initialise
 	{
@@ -29,7 +29,7 @@ public class HomePage {
 	public LoginPage navigateToLoginPage()
 	{
 		page.click(menuClick);
-		page.click(loginClick);
+		page.getByText(loginClick).click();
 		return new LoginPage(page);
 	}
 }

@@ -1,5 +1,6 @@
 package Test;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Base.BaseClass;
@@ -13,9 +14,10 @@ public class loginPageTest extends BaseClass{
 	}
 	
 	@Test(priority=2)
-	public void checkLogin()
+	public void checkIncorrectLogin()
 	{
-		loginPage.enterUsername(prop.getProperty("username"), prop.getProperty("password"));
+		loginPage.enterWrongUsername(prop.getProperty("username"), prop.getProperty("password"));
+		Assert.assertTrue(loginPage.loginErrorMessage().contains(prop.getProperty("incorrectEmailErrorText")));
 	}
 
 }
