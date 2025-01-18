@@ -34,7 +34,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/rajiblam/PlaywrightDemoProject'
-                    sh "mvn clean test -Dsurefire.suiteXmlFiles=ParallelExecution.xml"
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/java/Resources/ParallelExecution.xml"
                     
                 }
             }
